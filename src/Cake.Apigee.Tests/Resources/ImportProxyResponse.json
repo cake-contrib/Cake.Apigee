@@ -1,0 +1,55 @@
+﻿{
+    "basepaths": [ "/fake" ],
+    "configurationVersion": {
+        "majorVersion": 4,
+        "minorVersion": 0
+    },
+    "contextInfo": "Revision 18 of application fake-api, in organization fakeorg",
+    "createdAt": 1487179531744,
+    "createdBy": "boaty.mcboatface@winner.com",
+    "description": "Generated SOAP to API proxyXXRX_ORG_BO_PUB_Service",
+    "displayName": "FAKE_Service",
+    "lastModifiedAt": 1487179531744,
+    "lastModifiedBy": "boaty.mcboatface@winner.com",
+    "name": "fake-api",
+    "policies": [ "Extract-Operation-Name", "Invalid-SOAP", "Return-WSDL", "XML-to-JSON" ],
+    "proxies": [ "default" ],
+    "proxyEndpoints": [ "default" ],
+    "resourceFiles": {
+        "resourceFile": [
+            {
+                "name": "api/controllers/README.md",
+                "type": "node"
+            },
+            {
+                "name": "api/controllers/hello_world.js",
+                "type": "node"
+            },
+            {
+                "name": "api/helpers/README.md",
+                "type": "node"
+            },
+            {
+                "name": "api/mocks/README.md",
+                "type": "node"
+            },
+            {
+                "name": "api/swagger/swagger.yaml",
+                "type": "node"
+            },
+            {
+                "name": "app.js",
+                "type": "node"
+            }
+        ]
+    },
+    "resources": [ 
+        "node://api/controllers/README.md", "node://api/controllers/hello_world.js", "node://api/helpers/README.md", "node://api/mocks/README.md", "node://api/swagger/swagger.yaml", "node://app.js" ],
+    "revision": "18",
+    "sharedFlows": [],
+    "spec": "",
+    "targetEndpoints": [ "default" ],
+    "targetServers": [],
+    "targets": [ "default" ],
+    "type": "Application"
+}

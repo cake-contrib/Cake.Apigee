@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+      <id>Cake.Apigee</id>
+      <version>$version$</version>
+      <authors>Cybercohesion</authors>
+      <owners>Cybercohesion</owners>
+      <title>Cake.Apigee</title>
+      <description>Cake Build addin for Apigee management API. Currently only handles proxy deployment.</description>
+      <summary>Cake Build addin for the Apigee management API.</summary>
+      <licenseUrl>https://github.com/MihaMarkic/Cake.Putty/blob/master/LICENSE</licenseUrl>
+      <projectUrl>https://github.com/MihaMarkic/Cake.Putty</projectUrl>
+      <releaseNotes>See https://github.com/MihaMarkic/Cake.Putty/blob/master/ReleaseNotes.md</releaseNotes>
+      
+      <requireLicenseAcceptance>false</requireLicenseAcceptance>
+      <copyright>Copyright (c) Cybercohesion 2017</copyright>
+      <tags>Cake Script Build Apigee</tags>
+
+      <dependencies>
+          <dependency id="Microsoft.Net.Http" version="2.2.29" targetFramework="net462" />
+          <dependency id="Newtonsoft.Json" version="9.0.1" targetFramework="net462" />
+      </dependencies>
+   </metadata>
+
+   <files>
+      <file src="Cake.Apigee\bin\Release\Cake.Apigee.dll" target="lib\net45\Cake.Apigee.dll" />
+      <file src="Cake.Apigee\bin\Release\Cake.Apigee.XML" target="lib\net45\Cake.Apigee.XML" />
+   </files>
+</package>
