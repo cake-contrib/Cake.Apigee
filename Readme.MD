@@ -1,5 +1,7 @@
 # Cake.Apigee
 
+![https://ci.appveyor.com/api/projects/status/3118flw53uycwffg?svg=true](https://ci.appveyor.com/api/projects/status/3118flw53uycwffg?svg=true)
+
 A Cake AddIn that extends Cake with [Apigee](https://apigee.com) management API commands.
 
 [![cakebuild.net](https://img.shields.io/badge/WWW-cakebuild.net-blue.svg)](http://cakebuild.net/)
