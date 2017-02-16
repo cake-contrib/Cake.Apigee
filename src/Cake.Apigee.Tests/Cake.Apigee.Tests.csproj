@@ -88,10 +88,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>SolutionInfo.cs</Link>
+    </Compile>
     <Compile Include="ApigeeAliasesTests.cs" />
     <Compile Include="ApigeeAliasesFixture.cs" />
     <Compile Include="FakeResponseHandler.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceHelper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +106,9 @@
       <Project>{d9cdf248-bdb4-4bec-ba78-adf07ef48567}</Project>
       <Name>Cake.Apigee</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

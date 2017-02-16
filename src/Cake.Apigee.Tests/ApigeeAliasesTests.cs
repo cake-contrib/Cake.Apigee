@@ -1,27 +1,20 @@
 using System;
 using System.Linq;
 
-using Cake.Apigee.Services;
-
 using Xunit;
 
 namespace Cake.Apigee.Tests
 {
-    public class ApigeeAliasesTests : IClassFixture<ApigeeAliasesFixture>
-    {
-        private readonly ApigeeAliasesFixture fixture;
-
-        public ApigeeAliasesTests(ApigeeAliasesFixture fixture)
-        {
-            this.fixture = fixture;
-            ApigeeAliases.ApigeeProxyManagementService = this.fixture.ApigeeProxyManagementService;
-        }
-
+    public class ApigeeAliasesTests
+    {        
         [Fact]
         public void WithoutSettings_ShouldImportProxy()
-        {   
-            // Arrange     
-            this.fixture.UseSuccessfulImportResponse();    
+        {
+            // Arrange
+            var fixture = new ApigeeAliasesFixture();            
+            ApigeeAliases.ApigeeProxyManagementService = fixture.ApigeeProxyManagementService;
+
+            fixture.UseSuccessfulImportResponse();    
 
             // Act
             ApigeeAliases.ImportProxy(fixture.ContextMock.Object, "org", "proxy", fixture.GetProxyZipFilePath());
@@ -34,7 +27,10 @@ namespace Cake.Apigee.Tests
         public void WithCredentials_ShouldImportProxyWithCredentials()
         {
             // Arrange     
-            this.fixture.UseSuccessfulImportResponse();
+            var fixture = new ApigeeAliasesFixture();
+            ApigeeAliases.ApigeeProxyManagementService = fixture.ApigeeProxyManagementService;
+
+            fixture.UseSuccessfulImportResponse();
 
             // Act
             var credentials = new Credentials { Username = "testUser", Password = "testPassword" };

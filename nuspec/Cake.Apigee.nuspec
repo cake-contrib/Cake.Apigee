@@ -8,22 +8,22 @@
       <title>Cake.Apigee</title>
       <description>Cake Build addin for Apigee management API. Currently only handles proxy deployment.</description>
       <summary>Cake Build addin for the Apigee management API.</summary>
-      <licenseUrl>https://github.com/MihaMarkic/Cake.Putty/blob/master/LICENSE</licenseUrl>
-      <projectUrl>https://github.com/MihaMarkic/Cake.Putty</projectUrl>
-      <releaseNotes>See https://github.com/MihaMarkic/Cake.Putty/blob/master/ReleaseNotes.md</releaseNotes>
+      <licenseUrl>https://github.com/LittleColin/Cake.Apigee/blob/master/LICENSE</licenseUrl>
+      <projectUrl>https://github.com/LittleColin/Cake.Apigee</projectUrl>
+      <releaseNotes>See https://github.com/LittleColin/Cake.Apigee/blob/master/ReleaseNotes.md</releaseNotes>
       
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
       <copyright>Copyright (c) Cybercohesion 2017</copyright>
       <tags>Cake Script Build Apigee</tags>
 
       <dependencies>
-          <dependency id="Microsoft.Net.Http" version="2.2.29" targetFramework="net462" />
-          <dependency id="Newtonsoft.Json" version="9.0.1" targetFramework="net462" />
+          <dependency id="Microsoft.Net.Http" version="2.2.29" />
+          <dependency id="Newtonsoft.Json" version="9.0.1" />
       </dependencies>
    </metadata>
 
    <files>
-      <file src="Cake.Apigee\bin\Release\Cake.Apigee.dll" target="lib\net45\Cake.Apigee.dll" />
-      <file src="Cake.Apigee\bin\Release\Cake.Apigee.XML" target="lib\net45\Cake.Apigee.XML" />
+      <file src="Cake.Apigee.dll" target="lib\net462\Cake.Apigee.dll" />
+      <file src="Cake.Apigee.XML" target="lib\net462\Cake.Apigee.XML" />
    </files>
 </package>

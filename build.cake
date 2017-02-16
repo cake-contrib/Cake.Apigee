@@ -142,7 +142,7 @@ Task("Create-NuGet-Packages")
     .IsDependentOn("Zip-Files")
     .Does(() =>
 {
-    NuGetPack("./nuspec/Cake.Http.nuspec", new NuGetPackSettings
+    NuGetPack("./nuspec/Cake.Apigee.nuspec", new NuGetPackSettings
     {
         Version = version,
         ReleaseNotes = releaseNotes.Notes.ToArray(),

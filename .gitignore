@@ -233,4 +233,6 @@ _Pvt_Extensions
 .fake/
 testing/
 src/tools
-/tools
+tools/**/*
+build/**/*
+
