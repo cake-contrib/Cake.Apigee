@@ -167,7 +167,6 @@ Task("Publish-Nuget")
     .IsDependentOn("Create-NuGet-Packages")
     .WithCriteria(() => isRunningOnAppVeyor)
     .WithCriteria(() => !isPullRequest)
-    .WithCriteria(() => isMasterBranch)
     .WithCriteria(() => isTagCommit)
     .Does(() =>
 {
