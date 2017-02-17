@@ -153,7 +153,17 @@ Task("Create-NuGet-Packages")
     });
 });
 
+Task("Diagnose-Publish-Nuget")
+    .Does(() =>
+{
+    Information("isRunningOnAppVeyor = " + isRunningOnAppVeyor);
+    Information("isPullRequest = " + isPullRequest);
+    Information("isMasterBranch = " + isMasterBranch);
+    Information("isTagCommit = " + isTagCommit);
+});
+
 Task("Publish-Nuget")
+    .IsDependentOn("Diagnose-Publish-Nuget")
     .IsDependentOn("Create-NuGet-Packages")
     .WithCriteria(() => isRunningOnAppVeyor)
     .WithCriteria(() => !isPullRequest)
