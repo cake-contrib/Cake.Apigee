@@ -23,7 +23,7 @@
    </metadata>
 
    <files>
-      <file src="Cake.Apigee.dll" target="lib\net462\Cake.Apigee.dll" />
-      <file src="Cake.Apigee.XML" target="lib\net462\Cake.Apigee.XML" />
+      <file src="Cake.Apigee.dll" target="lib\net45\Cake.Apigee.dll" />
+      <file src="Cake.Apigee.XML" target="lib\net45\Cake.Apigee.XML" />
    </files>
 </package>
