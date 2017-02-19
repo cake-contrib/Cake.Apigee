@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Net.Http;
 
 using Cake.Apigee.Contracts;
@@ -19,7 +21,7 @@ namespace Cake.Apigee
         {
             ctx.Log.Information("Import proxy " + proxyZipfile);
 
-            return ApigeeProxyManagementService.ImportProxyAsync(ctx, orgName, proxyName, proxyZipfile, settings).Result;
+            return Run(() => ApigeeProxyManagementService.ImportProxyAsync(ctx, orgName, proxyName, proxyZipfile, settings).Result);
         }
 
         [CakeMethodAlias]
@@ -45,11 +47,11 @@ namespace Cake.Apigee
             string revisionNumber,
             DeployProxySettings settings = null)
         {
-            return ApigeeProxyManagementService.DeployProxyAsync(ctx, orgName, envName, apiName, revisionNumber, settings).Result;
+            return Run(() => ApigeeProxyManagementService.DeployProxyAsync(ctx, orgName, envName, apiName, revisionNumber, settings).Result);
         }
 
         [CakeMethodAlias]
-        public static InstallNodePackagedModulesResult[] InstallNodePackagedModules(
+        public static NodePackagedModuleMetadata[] InstallNodePackagedModules(
             this ICakeContext ctx,
             string orgName,
             string proxyName,
@@ -65,18 +67,30 @@ namespace Cake.Apigee
         }
 
         [CakeMethodAlias]
-        public static InstallNodePackagedModulesResult[] InstallNodePackagedModules(
+        public static NodePackagedModuleMetadata[] InstallNodePackagedModules(
             this ICakeContext ctx,
             string orgName,
             ImportProxyResult importResult,
             InstallNodePackagedModulesSettings settings = null)
         {
-            return ApigeeProxyManagementService.InstallNodePackagedModules(
+            return Run(() => ApigeeProxyManagementService.InstallNodePackagedModules(
                 ctx,
                 orgName,
                 importResult.Name,
                 importResult.Revision,
-                settings).Result;
+                settings).Result);
+        }
+
+        private static T Run<T>(Func<T> function)
+        {
+            try
+            {
+                return function.Invoke();
+            }
+            catch (AggregateException aggEx)
+            {                
+                throw new Exception(string.Join("; ", aggEx.Flatten().InnerExceptions.Select(ex => ex.Message)));
+            }
         }
     }
 }

@@ -1,0 +1,475 @@
+﻿[
+    {
+        "name": "express-xml-bodyparser",
+        "version": "0.3.0",
+        "from": "express-xml-bodyparser@0.3.0",
+        "dependencies": {}
+    },
+  {
+    "name": "apigee-access",
+    "version": "1.3.0",
+    "from": "apigee-access@1.3.0",
+    "dependencies": {}
+  },
+  {
+    "name": "volos-analytics-common",
+    "version": "0.2.4",
+    "from": "volos-analytics-common@*",
+    "dependencies": {
+      "debug": {
+        "version": "2.6.1",
+        "from": "debug@>=2.2.0 <3.0.0",
+        "dependencies": {
+          "ms": {
+            "version": "0.7.2",
+            "from": "ms@0.7.2",
+            "dependencies": {}
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "volos-analytics-memory",
+    "version": "0.2.1",
+    "from": "volos-analytics-memory@*",
+    "dependencies": {
+      "on-finished": {
+        "version": "2.2.1",
+        "from": "on-finished@>=2.2.1 <2.3.0",
+        "dependencies": {
+          "ee-first": {
+            "version": "1.1.0",
+            "from": "ee-first@1.1.0",
+            "dependencies": {}
+          }
+        }
+      },
+      "debug": {
+        "version": "2.6.1",
+        "from": "debug@>=2.2.0 <3.0.0",
+        "dependencies": {
+          "ms": {
+            "version": "0.7.2",
+            "from": "ms@0.7.2",
+            "dependencies": {}
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "volos-spikearrest-memory",
+    "version": "0.10.1",
+    "from": "volos-spikearrest-memory@*",
+    "dependencies": {
+      "volos-spikearrest-common": {
+        "version": "0.10.3",
+        "from": "volos-spikearrest-common@>=0.10.0 <0.11.0",
+        "dependencies": {
+          "underscore": {
+            "version": "1.6.0",
+            "from": "underscore@>=1.6.0 <1.7.0",
+            "dependencies": {}
+          }
+        }
+      },
+      "debug": {
+        "version": "2.6.1",
+        "from": "debug@>=2.2.0 <3.0.0",
+        "dependencies": {
+          "ms": {
+            "version": "0.7.2",
+            "from": "ms@0.7.2",
+            "dependencies": {}
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "volos-cache-memory",
+    "version": "0.10.1",
+    "from": "volos-cache-memory@*",
+    "dependencies": {
+      "lru-cache-plus": {
+        "version": "2.5.0",
+        "from": "lru-cache-plus@>=2.5.0 <2.6.0",
+        "dependencies": {}
+      },
+      "volos-cache-common": {
+        "version": "0.10.6",
+        "from": "volos-cache-common@>=0.10.0 <0.11.0",
+        "dependencies": {
+          "underscore": {
+            "version": "1.6.0",
+            "from": "underscore@>=1.6.0 <1.7.0",
+            "dependencies": {}
+          }
+        }
+      },
+      "debug": {
+        "version": "2.6.1",
+        "from": "debug@>=2.2.0 <3.0.0",
+        "dependencies": {
+          "ms": {
+            "version": "0.7.2",
+            "from": "ms@0.7.2",
+            "dependencies": {}
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "volos-quota-memory",
+    "version": "0.11.1",
+    "from": "volos-quota-memory@*",
+    "dependencies": {
+      "volos-quota-common": {
+        "version": "0.11.3",
+        "from": "volos-quota-common@>=0.11.0 <0.12.0",
+        "dependencies": {
+          "underscore": {
+            "version": "1.6.0",
+            "from": "underscore@>=1.6.0 <1.7.0",
+            "dependencies": {}
+          }
+        }
+      },
+      "debug": {
+        "version": "2.6.1",
+        "from": "debug@>=2.2.0 <3.0.0",
+        "dependencies": {
+          "ms": {
+            "version": "0.7.2",
+            "from": "ms@0.7.2",
+            "dependencies": {}
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "volos-cache-redis",
+    "version": "0.10.1",
+    "from": "volos-cache-redis@*",
+    "dependencies": {
+      "volos-cache-common": {
+        "version": "0.10.6",
+        "from": "volos-cache-common@>=0.10.0 <0.11.0",
+        "dependencies": {}
+      },
+      "underscore": {
+        "version": "1.6.0",
+        "from": "underscore@>=1.6.0 <1.7.0",
+        "dependencies": {}
+      },
+      "redis": {
+        "version": "0.10.3",
+        "from": "redis@>=0.10.0 <0.11.0",
+        "dependencies": {}
+      },
+      "debug": {
+        "version": "2.6.1",
+        "from": "debug@>=2.2.0 <3.0.0",
+        "dependencies": {
+          "ms": {
+            "version": "0.7.2",
+            "from": "ms@0.7.2",
+            "dependencies": {}
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "volos-cache-apigee",
+    "version": "0.10.2",
+    "from": "volos-cache-apigee@*",
+    "dependencies": {
+      "volos-cache-common": {
+        "version": "0.10.6",
+        "from": "volos-cache-common@>=0.10.0 <0.11.0",
+        "dependencies": {}
+      },
+      "apigee-access": {
+        "version": "1.0.2",
+        "from": "apigee-access@>=1.0.0 <1.1.0",
+        "dependencies": {}
+      },
+      "underscore": {
+        "version": "1.6.0",
+        "from": "underscore@>=1.6.0 <1.7.0",
+        "dependencies": {}
+      },
+      "debug": {
+        "version": "2.6.1",
+        "from": "debug@>=2.2.0 <3.0.0",
+        "dependencies": {
+          "ms": {
+            "version": "0.7.2",
+            "from": "ms@0.7.2",
+            "dependencies": {}
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "volos-quota-redis",
+    "version": "0.11.2",
+    "from": "volos-quota-redis@*",
+    "dependencies": {
+      "volos-quota-common": {
+        "version": "0.11.3",
+        "from": "volos-quota-common@>=0.11.0 <0.12.0",
+        "dependencies": {}
+      },
+      "underscore": {
+        "version": "1.6.0",
+        "from": "underscore@>=1.6.0 <1.7.0",
+        "dependencies": {}
+      },
+      "redis": {
+        "version": "0.10.3",
+        "from": "redis@>=0.10.0 <0.11.0",
+        "dependencies": {}
+      },
+      "debug": {
+        "version": "2.6.1",
+        "from": "debug@>=2.2.0 <3.0.0",
+        "dependencies": {
+          "ms": {
+            "version": "0.7.2",
+            "from": "ms@0.7.2",
+            "dependencies": {}
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "volos-oauth-redis",
+    "version": "0.13.0",
+    "from": "volos-oauth-redis@*",
+    "dependencies": {
+      "volos-oauth-common": {
+        "version": "0.13.1",
+        "from": "volos-oauth-common@>=0.13.0 <0.14.0",
+        "dependencies": {}
+      },
+      "underscore": {
+        "version": "1.6.0",
+        "from": "underscore@>=1.6.0 <1.7.0",
+        "dependencies": {}
+      },
+      "node-uuid": {
+        "version": "1.4.7",
+        "from": "node-uuid@>=1.4.0 <1.5.0",
+        "dependencies": {}
+      },
+      "redis": {
+        "version": "0.10.3",
+        "from": "redis@>=0.10.0 <0.11.0",
+        "dependencies": {}
+      },
+      "debug": {
+        "version": "2.6.1",
+        "from": "debug@>=2.2.0 <3.0.0",
+        "dependencies": {
+          "ms": {
+            "version": "0.7.2",
+            "from": "ms@0.7.2",
+            "dependencies": {}
+          }
+        }
+      },
+      "volos-management-redis": {
+        "version": "0.9.10",
+        "from": "volos-management-redis@>=0.9.0 <0.10.0",
+        "dependencies": {
+          "volos-management-common": {
+            "version": "0.9.4",
+            "from": "volos-management-common@>=0.9.0 <0.10.0",
+            "dependencies": {}
+          },
+          "async": {
+            "version": "0.8.0",
+            "from": "async@>=0.8.0 <0.9.0",
+            "dependencies": {}
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "should",
+    "version": "4.4.4",
+    "from": "should@>=4.4.0 <4.5.0",
+    "dependencies": {
+      "should-format": {
+        "version": "0.0.6",
+        "from": "should-format@0.0.6",
+        "dependencies": {
+          "should-type": {
+            "version": "0.0.4",
+            "from": "should-type@0.0.4",
+            "dependencies": {}
+          }
+        }
+      },
+      "should-equal": {
+        "version": "0.2.8",
+        "from": "should-equal@0.2.8",
+        "dependencies": {
+          "should-type": {
+            "version": "0.0.4",
+            "from": "should-type@0.0.4",
+            "dependencies": {}
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "xml2js",
+    "version": "0.4.17",
+    "from": "xml2js@0.4.17",
+    "dependencies": {
+      "sax": {
+        "version": "1.2.2",
+        "from": "sax@>=0.6.0",
+        "dependencies": {}
+      },
+      "xmlbuilder": {
+        "version": "4.2.1",
+        "from": "xmlbuilder@>=4.1.0 <5.0.0",
+        "dependencies": {
+          "lodash": {
+            "version": "4.17.4",
+            "from": "lodash@>=4.5.1 <5.0.0",
+            "dependencies": {}
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "supertest",
+    "version": "0.15.0",
+    "from": "supertest@>=0.15.0 <0.16.0",
+    "dependencies": {
+      "methods": {
+        "version": "1.1.2",
+        "from": "methods@>=1.0.0 <2.0.0",
+        "dependencies": {}
+      },
+      "superagent": {
+        "version": "0.21.0",
+        "from": "superagent@>=0.21.0 <0.22.0",
+        "dependencies": {
+          "extend": {
+            "version": "1.2.1",
+            "from": "extend@>=1.2.1 <1.3.0",
+            "dependencies": {}
+          },
+          "methods": {
+            "version": "1.0.1",
+            "from": "methods@1.0.1",
+            "dependencies": {}
+          },
+          "cookiejar": {
+            "version": "2.0.1",
+            "from": "cookiejar@2.0.1",
+            "dependencies": {}
+          },
+          "component-emitter": {
+            "version": "1.1.2",
+            "from": "component-emitter@1.1.2",
+            "dependencies": {}
+          },
+          "reduce-component": {
+            "version": "1.0.1",
+            "from": "reduce-component@1.0.1",
+            "dependencies": {}
+          },
+          "qs": {
+            "version": "1.2.0",
+            "from": "qs@1.2.0",
+            "dependencies": {}
+          },
+          "mime": {
+            "version": "1.2.11",
+            "from": "mime@1.2.11",
+            "dependencies": {}
+          },
+          "formidable": {
+            "version": "1.0.14",
+            "from": "formidable@1.0.14",
+            "dependencies": {}
+          },
+          "readable-stream": {
+            "version": "1.0.27-1",
+            "from": "readable-stream@1.0.27-1",
+            "dependencies": {
+              "inherits": {
+                "version": "2.0.3",
+                "from": "inherits@>=2.0.1 <2.1.0",
+                "dependencies": {}
+              },
+              "isarray": {
+                "version": "0.0.1",
+                "from": "isarray@0.0.1",
+                "dependencies": {}
+              },
+              "string_decoder": {
+                "version": "0.10.31",
+                "from": "string_decoder@>=0.10.0 <0.11.0",
+                "dependencies": {}
+              },
+              "core-util-is": {
+                "version": "1.0.2",
+                "from": "core-util-is@>=1.0.0 <1.1.0",
+                "dependencies": {}
+              }
+            }
+          },
+          "debug": {
+            "version": "2.6.1",
+            "from": "debug@>=2.0.0 <3.0.0",
+            "dependencies": {
+              "ms": {
+                "version": "0.7.2",
+                "from": "ms@0.7.2",
+                "dependencies": {}
+              }
+            }
+          },
+          "form-data": {
+            "version": "0.1.3",
+            "from": "form-data@0.1.3",
+            "dependencies": {
+              "async": {
+                "version": "0.9.2",
+                "from": "async@>=0.9.0 <0.10.0",
+                "dependencies": {}
+              },
+              "combined-stream": {
+                "version": "0.0.7",
+                "from": "combined-stream@>=0.0.4 <0.1.0",
+                "dependencies": {
+                  "delayed-stream": {
+                    "version": "0.0.5",
+                    "from": "delayed-stream@0.0.5",
+                    "dependencies": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]

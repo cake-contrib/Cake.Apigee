@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -6,8 +7,13 @@ using System.Net.Http;
 
 using Cake.Apigee.Services;
 using Cake.Core;
+using Cake.Core.Diagnostics;
 
 using Moq;
+
+using Xunit.Abstractions;
+
+using Verbosity = Cake.Core.Diagnostics.Verbosity;
 
 namespace Cake.Apigee.Tests
 {
@@ -35,10 +41,21 @@ namespace Cake.Apigee.Tests
             }
         }
 
-        public ApigeeAliasesFixture()
+        public ApigeeAliasesFixture(ITestOutputHelper output)
         {
             this.ApigeeProxyManagementService = new ApigeeProxyManagementService(new HttpClient(FakeResponseHandler));
             this.ContextMock = new Mock<ICakeContext>();
+            this.ContextMock.Setup(
+                cm =>
+                    cm.Log.Write(
+                        It.IsAny<Verbosity>(),
+                        It.IsAny<LogLevel>(),
+                        It.IsAny<string>(),
+                        It.IsAny<object[]>())).Callback<Verbosity, LogLevel, string, object[]>(
+                            (v, l, m, p) =>
+                            {
+                                output.WriteLine($"{v}-{l}: {string.Format(m, p)}{Environment.NewLine}");
+                            });
         }
 
         public string GetProxyZipFilePath()
@@ -50,12 +67,17 @@ namespace Cake.Apigee.Tests
 
         public void UseSuccessfulImportResponse()
         {
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK)
-                {
-                    Content = new StringContent(ResourceHelper.GetResourceAsString("ImportProxyResponse.json"))
-                };
+            SetFakeResponse(HttpStatusCode.OK, "ImportProxyResponse.json");
+        }
 
-            this.FakeResponseHandler.SetFakeResponse(response);
+        public void UseFailedImportResponse()
+        {
+            SetFakeResponse(HttpStatusCode.BadRequest, "ImportProxyFailResponse.json");
+        }
+
+        public void UseSuccessfulNpmInstallResponse()
+        {            
+            SetFakeResponse(HttpStatusCode.OK, "InstallNodePackagedModulesResponse.json");
         }
 
         public void Dispose()
@@ -66,6 +88,18 @@ namespace Cake.Apigee.Tests
             {
                 File.Delete(proxyZipFile);
             }
+        }    
+
+        private void SetFakeResponse(HttpStatusCode statusCode, string resourceName)
+        {
+            HttpResponseMessage response = new HttpResponseMessage(statusCode)
+            {
+                Content =
+                    new StringContent(
+                        ResourceHelper.GetResourceAsString(resourceName))
+            };
+
+            this.FakeResponseHandler.SetFakeResponse(response);
         }
     }
 }

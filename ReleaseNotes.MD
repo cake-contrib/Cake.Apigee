@@ -1,3 +1,7 @@
+## New in 0.3.0 (Released 19/02/2017)
+- improved error reporting
+- return and list the packages restored by npm in Apigee
+
 ## New in 0.2.0 (Released 17/02/2017)
 - Fix for nuget package folder to lib\net45
 

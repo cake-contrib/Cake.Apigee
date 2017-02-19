@@ -42,4 +42,8 @@ deployments.
 
 Tested only on Windows at this time. 
 
+# Debugging
+
+There is a "Debug" flag on each of the Settings objects that will cause the Apigee response to be dumped to the console.
+
 [![Follow @cybercohesion](https://img.shields.io/badge/Twitter-Follow%20%40cybercohesion-blue.svg)](https://twitter.com/intent/follow?screen_name=cybercohesion)

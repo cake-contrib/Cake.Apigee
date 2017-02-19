@@ -131,7 +131,7 @@ namespace Cake.Apigee.Services
             }
         }
 
-        public async Task<InstallNodePackagedModulesResult[]> InstallNodePackagedModules(
+        public async Task<NodePackagedModuleMetadata[]> InstallNodePackagedModules(
             ICakeContext ctx,
             string orgName,
             string proxyName,
@@ -148,8 +148,11 @@ namespace Cake.Apigee.Services
                 }
 
                 message.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                message.Content = new FormUrlEncodedContent(new Dictionary<string, string> { { "command", "install" }});
-                return await SendMessage<InstallNodePackagedModulesResult[]>(ctx, message, settings);
+                message.Content = new FormUrlEncodedContent(new Dictionary<string, string> {{ "command", "install" }});
+
+                var modules = await SendMessage<NodePackagedModuleMetadata[]>(ctx, message, settings);
+                ctx.Log.Information(string.Join(Environment.NewLine, modules.Select(m => $"{m.Name}: {m.Version}")));
+                return modules;
             }
         }
 
