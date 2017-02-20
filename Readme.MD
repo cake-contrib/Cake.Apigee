@@ -29,9 +29,22 @@ Task("DeployProxy")
             Password = "mypassword"
         };
 
-    var result = ImportProxy(orgName, "myapi", File("apiproxy.zip"), new ImportProxySettings { Credentials = apigeeCredentials });
-    InstallNodePackagedModules(orgName, result, new InstallNodePackagedModulesSettings { Credentials = apigeeCredentials });
-    DeployProxy(orgName, "dev", result, new DeployProxySettings { Credentials = apigeeCredentials });
+    var result = ImportProxy(
+                    orgName, 
+                    "myapi", 
+                    File("apiproxy.zip"), 
+                    new ImportProxySettings { Credentials = apigeeCredentials });
+
+    InstallNodePackagedModules(
+                    orgName, 
+                    result, 
+                    new InstallNodePackagedModulesSettings { Credentials = apigeeCredentials });
+
+    DeployProxy(
+            orgName, 
+            "dev", 
+            result, 
+            new DeployProxySettings { Credentials = apigeeCredentials });
 }
 
 ```
