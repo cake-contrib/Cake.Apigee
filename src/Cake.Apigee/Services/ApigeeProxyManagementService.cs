@@ -197,7 +197,7 @@ namespace Cake.Apigee.Services
                 tasks.Add(TryDeleteApiProxyRevision(ctx, orgName, proxyName, revision, settings));
             }
 
-            Task.WaitAll(tasks.ToArray());
+            Task.WaitAll(tasks.ToArray());            
         }
 
         private async Task<T> SendMessage<T>(ICakeContext ctx, HttpRequestMessage message, IBaseSettings settings)
