@@ -112,7 +112,31 @@ namespace Cake.Apigee
                 settings).Result);
         }
 
+        [CakeMethodAlias]
+        public static void DeleteAllUndeployedApiProxyRevisions(
+           this ICakeContext ctx,
+           string orgName,
+           string proxyName,
+           DeleteAllUndeployedApiProxyRevisionsSettings settings = null)
+        {
+            Run(() => ApigeeProxyManagementService.DeleteAllUndeployedApiProxyRevisions(
+                ctx,
+                orgName,
+                proxyName,                
+                settings).Wait());
+        }
 
+        private static void Run(Action function)
+        {
+            try
+            {
+                function.Invoke();
+            }
+            catch (AggregateException aggEx)
+            {
+                throw new Exception(string.Join("; ", aggEx.Flatten().InnerExceptions.Select(ex => ex.Message)));
+            }
+        }
 
         private static T Run<T>(Func<T> function)
         {

@@ -102,6 +102,8 @@
     <EmbeddedResource Include="Resources\weatherapi.zip" />
     <EmbeddedResource Include="Resources\ImportProxyFailResponse.json" />
     <EmbeddedResource Include="Resources\GetApiProxyResponse.json" />
+    <EmbeddedResource Include="Resources\DeleteApiProxyRevisionWhenDeployedResponse.json" />
+    <EmbeddedResource Include="Resources\DeleteApiProxyRevisionWhenNotFound.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cake.Apigee\Cake.Apigee.csproj">

@@ -1,6 +1,6 @@
 ﻿namespace Cake.Apigee
 {
-    public class BaseSettings
+    public class BaseSettings : IBaseSettings
     {
         public bool Debug { get; set; }
 

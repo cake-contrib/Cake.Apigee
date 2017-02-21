@@ -94,11 +94,13 @@
     <Compile Include="Contracts\ImportProxyResult.cs" />
     <Compile Include="Contracts\NodePackagedModuleMetadata.cs" />
     <Compile Include="Credentials.cs" />
+    <Compile Include="DeleteAllUndeployedApiProxyRevisionsSettings.cs" />
     <Compile Include="DeleteApiProxyRevisionSettings.cs" />
     <Compile Include="DeployProxySettings.cs" />
     <Compile Include="GetApiProxySettings.cs" />
     <Compile Include="ImportProxySettings.cs" />
     <Compile Include="InstallNodePackagedModulesSettings.cs" />
+    <Compile Include="IBaseSettings.cs" />
     <Compile Include="MicrosecondEpochConverter.cs" />
     <Compile Include="Services\ApigeeProxyManagementService.cs" />
   </ItemGroup>

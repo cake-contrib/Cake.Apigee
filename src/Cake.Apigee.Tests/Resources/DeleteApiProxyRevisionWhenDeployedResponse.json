@@ -1,0 +1,5 @@
+﻿{
+    "code": "distribution.ApplicationCanNotBeDeleted",
+    "message": "Can not delete Revision 123 of ApiProxy your-proxy in organization yourorg. Undeploy the ApiProxy and try again.",
+    "contexts": []
+}

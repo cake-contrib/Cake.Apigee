@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -110,7 +111,7 @@ namespace Cake.Apigee.Services
             ImportProxySettings settings)
         {
             ctx.Log.Information("Importing Apigee proxy {0}", proxyName);
-            string url = baseUri + $"/v1/organizations/{orgName}/apis?action=import&name={proxyName}";
+            string url = baseUri + $"v1/organizations/{orgName}/apis?action=import&name={proxyName}";
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, url))
             {
                 if (!string.IsNullOrEmpty(settings?.Credentials?.Username))
@@ -139,7 +140,7 @@ namespace Cake.Apigee.Services
             InstallNodePackagedModulesSettings settings)
         {
             ctx.Log.Information("Installing Node Packaged Modules (npm) in Apigee for revision {0} of {1}", revisionNumber, proxyName);
-            string url = baseUri + $"/v1/organizations/{orgName}/apis/{proxyName}/revisions/{revisionNumber}/npm";
+            string url = baseUri + $"v1/organizations/{orgName}/apis/{proxyName}/revisions/{revisionNumber}/npm";
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, url))
             {
                 if (!string.IsNullOrEmpty(settings?.Credentials?.Username))
@@ -156,10 +157,10 @@ namespace Cake.Apigee.Services
             }
         }
 
-        public async Task<ApiProxy> GetApiProxy(ICakeContext ctx, string orgName, string proxyName, GetApiProxySettings settings)
+        public async Task<ApiProxy> GetApiProxy(ICakeContext ctx, string orgName, string proxyName, IBaseSettings settings)
         {
             // https://api.enterprise.apigee.com
-            string url = baseUri + $"/v1/organizations/{orgName}/apis/{proxyName}";
+            string url = baseUri + $"v1/organizations/{orgName}/apis/{proxyName}";
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, url))
             {
                 if (!string.IsNullOrEmpty(settings?.Credentials?.Username))
@@ -172,10 +173,9 @@ namespace Cake.Apigee.Services
             }
         }
 
-        public async Task<ApiProxy> DeleteApiProxyRevision(ICakeContext ctx, string orgName, string proxyName, string revisionNumber, DeleteApiProxyRevisionSettings settings)
+        public async Task<ApiProxy> DeleteApiProxyRevision(ICakeContext ctx, string orgName, string proxyName, string revisionNumber, IBaseSettings settings)
         {
-            // https://api.enterprise.apigee.com
-            string url = baseUri + $"/v1/organizations/{orgName}/apis/{proxyName}/revisions/{revisionNumber}";
+            var url = baseUri + $"v1/organizations/{orgName}/apis/{proxyName}/revisions/{revisionNumber}";
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Delete, url))
             {
                 if (!string.IsNullOrEmpty(settings?.Credentials?.Username))
@@ -188,15 +188,27 @@ namespace Cake.Apigee.Services
             }
         }
 
-        private async Task<T> SendMessage<T>(ICakeContext ctx, HttpRequestMessage message, BaseSettings settings)
+        public async Task DeleteAllUndeployedApiProxyRevisions(ICakeContext ctx, string orgName, string proxyName, IBaseSettings settings)
+        {
+            var proxy = await GetApiProxy(ctx, orgName, proxyName, settings);
+            var tasks = new List<Task>();
+            foreach (var revision in proxy.Revision)
+            {
+                tasks.Add(TryDeleteApiProxyRevision(ctx, orgName, proxyName, revision, settings));
+            }
+
+            Task.WaitAll(tasks.ToArray());
+        }
+
+        private async Task<T> SendMessage<T>(ICakeContext ctx, HttpRequestMessage message, IBaseSettings settings)
         {
             using (HttpResponseMessage response = await client.SendAsync(message))
             {
                 if (!response.IsSuccessStatusCode)
                 {
-                    string error = await response.Content.ReadAsStringAsync();
+                    string error = response.Content != null ? await response.Content.ReadAsStringAsync() : null;
                     ctx.Log.Error("Apigee status {0} returned: {1}", response.StatusCode, error);
-                    throw new Exception("Apigee returned " + response.StatusCode);
+                    throw new Exception("Apigee returned " + response.StatusCode + ": " + message.Method + " " + message.RequestUri);
                 }
 
                 string body = await response.Content.ReadAsStringAsync();
@@ -222,6 +234,52 @@ namespace Cake.Apigee.Services
                                                 Convert.ToBase64String(
                                                     Encoding.ASCII.GetBytes(
                                                         $"{credentials.Username}:{credentials.Password}")));
+        }
+
+        private async Task<bool> TryDeleteApiProxyRevision(ICakeContext ctx, string orgName, string proxyName, string revisionNumber, IBaseSettings settings)
+        {
+            var url = baseUri + $"v1/organizations/{orgName}/apis/{proxyName}/revisions/{revisionNumber}";
+            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Delete, url))
+            {
+                if (!string.IsNullOrEmpty(settings?.Credentials?.Username))
+                {
+                    AddAuthorization(settings.Credentials, message);
+                }
+
+                message.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                using (HttpResponseMessage response = await client.SendAsync(message))
+                {
+                    string body = response.Content != null ? await response.Content.ReadAsStringAsync() : null;
+                    if (settings?.Debug ?? false)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("RESPONSE from " + message.RequestUri);
+                        Console.WriteLine(body);
+                    }
+
+                    bool? result = null;
+                    if (response.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        var error = JsonConvert.DeserializeObject<ErrorResult>(body);
+                        if (error.Code == "distribution.ApplicationCanNotBeDeleted")
+                        {
+                            result = false;
+                        }                        
+                    }
+                    else if (response.IsSuccessStatusCode)
+                    {
+                        result = true;
+                    }
+
+                    ctx.Log.Verbose("Proxy revision {0} for {1} {2}", proxyName, revisionNumber, result ?? false ? "deleted" : "not deleted");
+                    if (result == null)
+                    {
+                        throw new Exception("Apigee returned unexpected status when deleting revision " + revisionNumber + " of proxy " + proxyName);
+                    }
+
+                    return result.Value;
+                }
+            }
         }
 
         #endregion

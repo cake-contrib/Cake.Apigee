@@ -85,6 +85,11 @@ namespace Cake.Apigee.Tests
             SetFakeResponse(HttpStatusCode.OK, "GetApiProxyResponse.json");
         }
 
+        public void Use(HttpStatusCode code, string resourceName)
+        {
+            SetFakeResponse(code, resourceName);
+        }
+
         public void Dispose()
         {
             this.FakeResponseHandler = new FakeResponseHandler();

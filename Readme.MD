@@ -45,6 +45,22 @@ Task("DeployProxy")
             "dev", 
             result, 
             new DeployProxySettings { Credentials = apigeeCredentials });
+
+    var proxy = GetApiProxy(
+            orgName,             
+            "my-proxy", 
+            new GetApiProxySettings { Credentials = apigeeCredentials });
+
+    DeleteApiProxyRevision(
+            orgName,             
+            "my-proxy", 
+            "123",
+            new DeleteApiProxyRevisionSettings { Credentials = apigeeCredentials });
+
+    DeleteAllUndeployedApiProxyRevisions(
+            orgName,             
+            "my-proxy",             
+            new DeleteAllUndeployedApiProxyRevisionsSettings { Credentials = apigeeCredentials });
 }
 
 ```

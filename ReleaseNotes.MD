@@ -1,3 +1,7 @@
+## New in 0.4.0 (Released 19/02/2017)
+- added DeleteAllUndeployedApiProxyRevisions, GetApiProxy and DeleteApiProxyRevision
+- improved error messages to include the URL and method of any failed calls
+
 ## New in 0.3.0 (Released 19/02/2017)
 - improved error reporting
 - return and list the packages restored by npm in Apigee

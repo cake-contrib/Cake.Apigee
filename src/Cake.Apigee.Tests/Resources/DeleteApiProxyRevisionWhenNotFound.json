@@ -1,0 +1,5 @@
+﻿{
+    "code": "messaging.config.beans.ApplicationDoesNotExist",
+    "message": "APIProxy named your-proxy does not exist in organization your-org",
+    "contexts": []
+}

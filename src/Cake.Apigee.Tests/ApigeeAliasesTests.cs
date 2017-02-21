@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 
 using Xunit;
 using Xunit.Abstractions;
@@ -28,7 +30,7 @@ namespace Cake.Apigee.Tests
             ApigeeAliases.ImportProxy(fixture.ContextMock.Object, "org", "proxy", fixture.GetProxyZipFilePath());
 
             // Assert
-            Assert.Equal(new Uri("https://api.enterprise.apigee.com//v1/organizations/org/apis?action=import&name=proxy"), fixture.RequestUrl);
+            Assert.Equal(new Uri("https://api.enterprise.apigee.com/v1/organizations/org/apis?action=import&name=proxy"), fixture.RequestUrl);
         }
 
         [Fact]
@@ -47,7 +49,7 @@ namespace Cake.Apigee.Tests
             }
             catch (Exception ex)
             {
-                Assert.Equal("Apigee returned BadRequest", ex.Message);
+                Assert.True(ex.Message.StartsWith("Apigee returned BadRequest"));
             }
         }
 
@@ -113,6 +115,64 @@ namespace Cake.Apigee.Tests
 
             // Act            
             ApigeeAliases.DeleteApiProxyRevision(fixture.ContextMock.Object, "org", "proxy", "123");
+        }
+
+        [Fact]
+        public void GivenDeleteApiProxyRevision_WhenNotFound_ThenError()
+        {
+            // Arrange     
+            var fixture = new ApigeeAliasesFixture(this.output);
+            ApigeeAliases.ApigeeProxyManagementService = fixture.ApigeeProxyManagementService;
+            fixture.Use(HttpStatusCode.NotFound, "DeleteApiProxyRevisionWhenNotFound.json");
+
+            // Act            
+            Assert.Throws<Exception>(() => ApigeeAliases.DeleteApiProxyRevision(fixture.ContextMock.Object, "org", "proxy", "123"));
+        }
+
+        [Fact]
+        public void GivenDeleteAllUndeployedApiProxyRevisions_WhenAllRevisionsDeleted_ThenSucceed()
+        {
+            // Arrange     
+            Uri baseUri = new Uri("https://api.enterprise.apigee.com");
+            var fixture = new ApigeeAliasesFixture(this.output);
+            ApigeeAliases.ApigeeProxyManagementService = fixture.ApigeeProxyManagementService;
+            fixture.FakeResponseHandler.AddFakeResponse(new Uri(baseUri, $"v1/organizations/org/apis/proxy"), new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(ResourceHelper.GetResourceAsString("GetApiProxyResponse.json")) });
+            for (var revision = 1; revision < 10; revision++)
+            {
+                fixture.FakeResponseHandler.AddFakeResponse(new Uri(baseUri, $"v1/organizations/org/apis/proxy/revisions/" + revision), new HttpResponseMessage(HttpStatusCode.OK));
+            }
+
+            // Act            
+            ApigeeAliases.DeleteAllUndeployedApiProxyRevisions(fixture.ContextMock.Object, "org", "proxy");
+        }
+
+        [Fact]
+        public void GivenDeleteAllUndeployedApiProxyRevisions_WhenARevisionIsDeployed_ThenDeleteAllOtherRevisionsAndSucceed()
+        {
+            // Arrange     
+            Uri baseUri = new Uri("https://api.enterprise.apigee.com");
+            var fixture = new ApigeeAliasesFixture(this.output);
+            ApigeeAliases.ApigeeProxyManagementService = fixture.ApigeeProxyManagementService;
+            fixture.FakeResponseHandler.AddFakeResponse(new Uri(baseUri, $"v1/organizations/org/apis/proxy"), new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(ResourceHelper.GetResourceAsString("GetApiProxyResponse.json")) });
+            for (var revision = 1; revision < 10; revision++)
+            {
+                var deployedRevisionNumber = 5;
+                if (revision == deployedRevisionNumber)
+                {
+                    fixture.FakeResponseHandler.AddFakeResponse(
+                        new Uri(baseUri, $"v1/organizations/org/apis/proxy/revisions/" + revision),
+                        new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent(ResourceHelper.GetResourceAsString("DeleteApiProxyRevisionWhenDeployedResponse.json")) });
+                }
+                else
+                {
+                    fixture.FakeResponseHandler.AddFakeResponse(
+                        new Uri(baseUri, $"v1/organizations/org/apis/proxy/revisions/" + revision),
+                        new HttpResponseMessage(HttpStatusCode.OK));
+                }
+            }
+
+            // Act            
+            ApigeeAliases.DeleteAllUndeployedApiProxyRevisions(fixture.ContextMock.Object, "org", "proxy");
         }
     }
 }
