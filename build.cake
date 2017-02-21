@@ -112,7 +112,7 @@ Task("Run-Unit-Tests")
     XUnit2("./src/**/bin/" + configuration + "/*.Tests.dll", new XUnit2Settings
     {
         OutputDirectory = testResultsDir,
-        Parallelism = ParallelismOption.All,
+        Parallelism = ParallelismOption.None,
         XmlReport = true,        
     });    
 });
