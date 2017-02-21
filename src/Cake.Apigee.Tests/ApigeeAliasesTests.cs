@@ -78,13 +78,41 @@ namespace Cake.Apigee.Tests
             fixture.UseSuccessfulNpmInstallResponse();
 
             // Act
-            var credentials = new Credentials { Username = "testUser", Password = "testPassword" };
             var modules = ApigeeAliases.InstallNodePackagedModules(fixture.ContextMock.Object, "org", "proxy", "123");
 
             // Assert
             Assert.Equal(14, modules.Length);
             Assert.Equal("express-xml-bodyparser", modules[0].Name);
             Assert.Equal("0.3.0", modules[0].Version);
+        }
+
+        [Fact]
+        public void GivenGetApiProxy_WhenProxyReturned_ThenRevisionsAvailable()
+        {
+            // Arrange     
+            var fixture = new ApigeeAliasesFixture(this.output);
+            ApigeeAliases.ApigeeProxyManagementService = fixture.ApigeeProxyManagementService;
+
+            fixture.UseSuccessfulGetApiProxyResponse();
+
+            // Act            
+            var proxy = ApigeeAliases.GetApiProxy(fixture.ContextMock.Object, "org", "proxy");
+
+            // Assert
+            Assert.Equal(9, proxy.Revision.Count());
+        }
+
+        [Fact]
+        public void GivenDeleteApiProxyRevision_WhenFound_ThenSuccess()
+        {
+            // Arrange     
+            var fixture = new ApigeeAliasesFixture(this.output);
+            ApigeeAliases.ApigeeProxyManagementService = fixture.ApigeeProxyManagementService;
+
+            fixture.UseSuccessfulGetApiProxyResponse();
+
+            // Act            
+            ApigeeAliases.DeleteApiProxyRevision(fixture.ContextMock.Object, "org", "proxy", "123");
         }
     }
 }

@@ -156,6 +156,38 @@ namespace Cake.Apigee.Services
             }
         }
 
+        public async Task<ApiProxy> GetApiProxy(ICakeContext ctx, string orgName, string proxyName, GetApiProxySettings settings)
+        {
+            // https://api.enterprise.apigee.com
+            string url = baseUri + $"/v1/organizations/{orgName}/apis/{proxyName}";
+            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, url))
+            {
+                if (!string.IsNullOrEmpty(settings?.Credentials?.Username))
+                {
+                    AddAuthorization(settings.Credentials, message);
+                }
+
+                message.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));                
+                return await SendMessage<ApiProxy>(ctx, message, settings);
+            }
+        }
+
+        public async Task<ApiProxy> DeleteApiProxyRevision(ICakeContext ctx, string orgName, string proxyName, string revisionNumber, DeleteApiProxyRevisionSettings settings)
+        {
+            // https://api.enterprise.apigee.com
+            string url = baseUri + $"/v1/organizations/{orgName}/apis/{proxyName}/revisions/{revisionNumber}";
+            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Delete, url))
+            {
+                if (!string.IsNullOrEmpty(settings?.Credentials?.Username))
+                {
+                    AddAuthorization(settings.Credentials, message);
+                }
+
+                message.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                return await SendMessage<ApiProxy>(ctx, message, settings);
+            }
+        }
+
         private async Task<T> SendMessage<T>(ICakeContext ctx, HttpRequestMessage message, BaseSettings settings)
         {
             using (HttpResponseMessage response = await client.SendAsync(message))

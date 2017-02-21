@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 using Cake.Apigee.Contracts;
 using Cake.Apigee.Services;
@@ -80,6 +81,38 @@ namespace Cake.Apigee
                 importResult.Revision,
                 settings).Result);
         }
+
+        [CakeMethodAlias]
+        public static ApiProxy GetApiProxy(
+           this ICakeContext ctx,
+           string orgName,
+           string proxyName,
+           GetApiProxySettings settings = null)
+        {
+            return Run(() => ApigeeProxyManagementService.GetApiProxy(
+                ctx,
+                orgName,
+                proxyName,                
+                settings).Result);
+        }
+
+        [CakeMethodAlias]
+        public static void DeleteApiProxyRevision(
+           this ICakeContext ctx,
+           string orgName,
+           string proxyName,
+           string revisionNumber,
+           DeleteApiProxyRevisionSettings settings = null)
+        {
+            Run(() => ApigeeProxyManagementService.DeleteApiProxyRevision(
+                ctx,
+                orgName,
+                proxyName,
+                revisionNumber,
+                settings).Result);
+        }
+
+
 
         private static T Run<T>(Func<T> function)
         {

@@ -80,6 +80,11 @@ namespace Cake.Apigee.Tests
             SetFakeResponse(HttpStatusCode.OK, "InstallNodePackagedModulesResponse.json");
         }
 
+        public void UseSuccessfulGetApiProxyResponse()
+        {
+            SetFakeResponse(HttpStatusCode.OK, "GetApiProxyResponse.json");
+        }
+
         public void Dispose()
         {
             this.FakeResponseHandler = new FakeResponseHandler();
@@ -100,6 +105,6 @@ namespace Cake.Apigee.Tests
             };
 
             this.FakeResponseHandler.SetFakeResponse(response);
-        }
+        }       
     }
 }
