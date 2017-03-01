@@ -1,6 +1,6 @@
 ﻿namespace Cake.Apigee
 {
-    public interface IBaseSettings
+    public interface ICredentialSettings
     {
         bool Debug { get; set; }
 

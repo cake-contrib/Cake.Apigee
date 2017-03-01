@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -138,6 +139,32 @@ namespace Cake.Apigee
                 orgName,
                 keyValueMap,
                 settings).Wait());
+        }
+
+        [CakeMethodAlias]
+        public static void DeleteKeyValueMap(
+           this ICakeContext ctx,
+           string orgName,
+           string keyValueMapName,
+           DeleteKeyValueMapSettings settings = null)
+        {
+            Run(() => ApigeeProxyManagementService.DeleteKeyValueMap(
+                ctx,
+                orgName,
+                keyValueMapName,
+                settings).Wait());
+        }
+
+        [CakeMethodAlias]
+        public static IEnumerable<string> ListKeyValueMaps(
+           this ICakeContext ctx,
+           string orgName,           
+           ListKeyValueMapsSettings settings = null)
+        {
+            return Run(() => ApigeeProxyManagementService.ListKeyValueMaps(
+                ctx,
+                orgName,                
+                settings).Result);
         }
 
         private static void Run(Action function)

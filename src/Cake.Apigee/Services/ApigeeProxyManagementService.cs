@@ -14,6 +14,7 @@ using Cake.Core.Diagnostics;
 using Cake.Core.IO;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Cake.Apigee.Services
 {
@@ -24,6 +25,11 @@ namespace Cake.Apigee.Services
         private readonly Uri baseUri = new Uri("https://api.enterprise.apigee.com");
 
         private readonly HttpClient client;
+
+        private readonly JsonSerializerSettings ApigeeJsonSettings = new JsonSerializerSettings
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver()
+        };
 
         #endregion
 
@@ -157,7 +163,7 @@ namespace Cake.Apigee.Services
             }
         }
 
-        public async Task<ApiProxy> GetApiProxy(ICakeContext ctx, string orgName, string proxyName, IBaseSettings settings)
+        public async Task<ApiProxy> GetApiProxy(ICakeContext ctx, string orgName, string proxyName, ICredentialSettings settings)
         {
             // https://api.enterprise.apigee.com
             string url = baseUri + $"v1/organizations/{orgName}/apis/{proxyName}";
@@ -173,7 +179,7 @@ namespace Cake.Apigee.Services
             }
         }
 
-        public async Task<ApiProxy> DeleteApiProxyRevision(ICakeContext ctx, string orgName, string proxyName, string revisionNumber, IBaseSettings settings)
+        public async Task<ApiProxy> DeleteApiProxyRevision(ICakeContext ctx, string orgName, string proxyName, string revisionNumber, ICredentialSettings settings)
         {
             var url = baseUri + $"v1/organizations/{orgName}/apis/{proxyName}/revisions/{revisionNumber}";
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Delete, url))
@@ -188,7 +194,7 @@ namespace Cake.Apigee.Services
             }
         }
 
-        public async Task DeleteAllUndeployedApiProxyRevisions(ICakeContext ctx, string orgName, string proxyName, IBaseSettings settings)
+        public async Task DeleteAllUndeployedApiProxyRevisions(ICakeContext ctx, string orgName, string proxyName, ICredentialSettings settings)
         {
             var proxy = await GetApiProxy(ctx, orgName, proxyName, settings);
             var tasks = new List<Task>();
@@ -200,18 +206,32 @@ namespace Cake.Apigee.Services
             Task.WaitAll(tasks.ToArray());            
         }
 
-        public async Task<CreateKeyValueMapResult> CreateKeyValueMap(ICakeContext ctx, string orgName, KeyValueMap keyValueMap, CreateKeyValueMapSettings settings)
+        public async Task<CreateKeyValueMapResult> CreateKeyValueMap(ICakeContext ctx, string orgName, KeyValueMap keyValueMap, IEnvironmentSettings settings)
         {
             ctx.Log.Information("Creating a KeyValueMap in Apigee");
-            var url = baseUri + $"v1/organizations/{orgName}"; ;
-            if (settings != null && settings.Environment != null)
-            {
-                url += $"/environments/{settings.Environment}";
-            }
-
-            url += "/keyvaluemaps";
+            var url = ConstructKeyValueMapUrl(orgName, settings);
 
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, url))
+            {
+                if (!string.IsNullOrEmpty(settings?.Credentials?.Username))
+                {
+                    AddAuthorization(settings.Credentials, message);
+                }                
+
+                message.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var json = JsonConvert.SerializeObject(keyValueMap, Formatting.None, ApigeeJsonSettings);
+                message.Content = new StringContent(json, Encoding.UTF8, "application/json");
+                return await SendMessage<CreateKeyValueMapResult>(ctx, message, settings);
+            }
+        }
+
+        public async Task<DeleteKeyValueMapResult> DeleteKeyValueMap(ICakeContext ctx, string orgName, string keyValueMapName, IEnvironmentSettings settings)
+        {
+            ctx.Log.Information("Deleting KeyValueMap {0} in Apigee", keyValueMapName);
+            var url = ConstructKeyValueMapUrl(orgName, settings);
+            url += "/" + keyValueMapName;
+
+            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Delete, url))
             {
                 if (!string.IsNullOrEmpty(settings?.Credentials?.Username))
                 {
@@ -219,12 +239,41 @@ namespace Cake.Apigee.Services
                 }
 
                 message.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                message.Content = new StringContent(JsonConvert.SerializeObject(keyValueMap), Encoding.UTF8, "application/json");
-                return await SendMessage<CreateKeyValueMapResult>(ctx, message, settings);
+                return await SendMessage<DeleteKeyValueMapResult>(ctx, message, settings);
             }
         }
 
-        private async Task<T> SendMessage<T>(ICakeContext ctx, HttpRequestMessage message, IBaseSettings settings)
+        public async Task<IEnumerable<string>> ListKeyValueMaps(ICakeContext ctx, string orgName, IEnvironmentSettings settings)
+        {
+            ctx.Log.Information("Listing KeyValueMaps in Apigee");
+            var url = ConstructKeyValueMapUrl(orgName, settings);            
+
+            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, url))
+            {
+                if (!string.IsNullOrEmpty(settings?.Credentials?.Username))
+                {
+                    AddAuthorization(settings.Credentials, message);
+                }
+
+                message.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                return await SendMessage<string[]>(ctx, message, settings);
+            }
+        }
+
+        private string ConstructKeyValueMapUrl(string orgName, IEnvironmentSettings settings)
+        {
+            var url = baseUri + $"v1/organizations/{orgName}";
+            ;
+            if (settings != null && settings.Environment != null)
+            {
+                url += $"/environments/{settings.Environment}";
+            }
+
+            url += "/keyvaluemaps";
+            return url;
+        }
+
+        private async Task<T> SendMessage<T>(ICakeContext ctx, HttpRequestMessage message, ICredentialSettings settings)
         {
             using (HttpResponseMessage response = await client.SendAsync(message))
             {
@@ -260,7 +309,7 @@ namespace Cake.Apigee.Services
                                                         $"{credentials.Username}:{credentials.Password}")));
         }
 
-        private async Task<bool> TryDeleteApiProxyRevision(ICakeContext ctx, string orgName, string proxyName, string revisionNumber, IBaseSettings settings)
+        private async Task<bool> TryDeleteApiProxyRevision(ICakeContext ctx, string orgName, string proxyName, string revisionNumber, ICredentialSettings settings)
         {
             var url = baseUri + $"v1/organizations/{orgName}/apis/{proxyName}/revisions/{revisionNumber}";
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Delete, url))
@@ -306,6 +355,6 @@ namespace Cake.Apigee.Services
             }
         }
 
-        #endregion
+        #endregion        
     }
 }

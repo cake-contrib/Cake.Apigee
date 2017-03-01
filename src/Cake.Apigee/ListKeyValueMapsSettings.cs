@@ -1,6 +1,6 @@
 ﻿namespace Cake.Apigee
 {
-    public class CreateKeyValueMapSettings : BaseSettings, IEnvironmentSettings
+    public class ListKeyValueMapsSettings : BaseSettings, IEnvironmentSettings
     {
         public string Environment { get; set; }
     }

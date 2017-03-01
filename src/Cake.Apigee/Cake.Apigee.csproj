@@ -89,10 +89,13 @@
     <Compile Include="Contracts\ApiProxyMetadata.cs" />
     <Compile Include="Contracts\ConfigurationVersion.cs" />
     <Compile Include="Contracts\CreateKeyValueMapResult.cs" />
+    <Compile Include="Contracts\DeleteKeyValueMapResult.cs" />
     <Compile Include="Contracts\DeployEnvironment.cs" />
     <Compile Include="Contracts\DeployProxyResult.cs" />
     <Compile Include="Contracts\ErrorResult.cs" />
     <Compile Include="Contracts\ImportProxyResult.cs" />
+    <Compile Include="DeleteKeyValueMapSettings.cs" />
+    <Compile Include="IEnvironmentSettings.cs" />
     <Compile Include="KeyValueMap.cs" />
     <Compile Include="KeyValueMapEntry.cs" />
     <Compile Include="Contracts\NodePackagedModuleMetadata.cs" />
@@ -103,7 +106,8 @@
     <Compile Include="GetApiProxySettings.cs" />
     <Compile Include="ImportProxySettings.cs" />
     <Compile Include="InstallNodePackagedModulesSettings.cs" />
-    <Compile Include="IBaseSettings.cs" />
+    <Compile Include="ICredentialSettings.cs" />
+    <Compile Include="ListKeyValueMapsSettings.cs" />
     <Compile Include="MicrosecondEpochConverter.cs" />
     <Compile Include="Services\ApigeeProxyManagementService.cs" />
     <Compile Include="CreateKeyValueMapSettings.cs" />
