@@ -104,6 +104,7 @@
     <EmbeddedResource Include="Resources\GetApiProxyResponse.json" />
     <EmbeddedResource Include="Resources\DeleteApiProxyRevisionWhenDeployedResponse.json" />
     <EmbeddedResource Include="Resources\DeleteApiProxyRevisionWhenNotFound.json" />
+    <EmbeddedResource Include="Resources\CreateKeyValueMapForEnvironmentResponse.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cake.Apigee\Cake.Apigee.csproj">

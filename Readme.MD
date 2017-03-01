@@ -61,6 +61,19 @@ Task("DeployProxy")
             orgName,             
             "my-proxy",             
             new DeleteAllUndeployedApiProxyRevisionsSettings { Credentials = apigeeCredentials });
+
+    CreateKeyValueMap(
+            orgName,
+            new KeyValueMap
+            {
+                Name = "myMap",
+                Encrypted = false,
+                Entry = new[]
+                {
+                    new KeyValueMapEntry { Name = "myKey", Value = "myValue" }
+                }
+            },
+            new CreateKeyValueMapSettings { Credentials = apigeeCredentials, Environment = "dev" });
 }
 
 ```

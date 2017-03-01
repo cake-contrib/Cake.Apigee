@@ -2,6 +2,9 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Policy;
+
+using Cake.Apigee.Services;
 
 using Xunit;
 using Xunit.Abstractions;
@@ -144,6 +147,33 @@ namespace Cake.Apigee.Tests
 
             // Act            
             ApigeeAliases.DeleteAllUndeployedApiProxyRevisions(fixture.ContextMock.Object, "org", "proxy");
+        }
+
+        [Fact]
+        public void GivenCreateKeyValueMap_WhenEnvironmentSpecified_CreatesAKeyValueMapForTheSpecifiedEnvironment()
+        {
+            // Arrange
+            // TODO: move this setup into the fixture
+            Uri baseUri = new Uri("https://api.enterprise.apigee.com");
+            var fixture = new ApigeeAliasesFixture(this.output);
+            ApigeeAliases.ApigeeProxyManagementService = fixture.ApigeeProxyManagementService;
+            fixture.FakeResponseHandler.AddFakeResponse(
+                new Uri(baseUri, $"v1/organizations/org/environments/myenvironment/keyvaluemaps"), 
+                HttpStatusCode.Created,
+                ResourceHelper.GetResourceAsString("CreateKeyValueMapForEnvironmentResponse.json"));
+
+            var keyValueMap = new KeyValueMap
+                {
+                    Name = "myMap",
+                    Encrypted = false,
+                    Entry = new[]
+                    {
+                        new KeyValueMapEntry { Name = "myKey", Value = "myValue" }
+                    }
+                };
+
+            var settings = new CreateKeyValueMapSettings { Environment = "myenvironment" };
+            ApigeeAliases.CreateKeyValueMap(fixture.ContextMock.Object, "org", keyValueMap, settings);
         }
 
         [Fact(Skip = "Investigating if cause of appVeyor hang")]

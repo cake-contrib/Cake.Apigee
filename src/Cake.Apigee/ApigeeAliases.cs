@@ -126,6 +126,20 @@ namespace Cake.Apigee
                 settings).Wait());
         }
 
+        [CakeMethodAlias]
+        public static void CreateKeyValueMap(
+           this ICakeContext ctx,
+           string orgName,
+           KeyValueMap keyValueMap,
+           CreateKeyValueMapSettings settings = null)
+        {
+            Run(() => ApigeeProxyManagementService.CreateKeyValueMap(
+                ctx,
+                orgName,
+                keyValueMap,
+                settings).Wait());
+        }
+
         private static void Run(Action function)
         {
             try

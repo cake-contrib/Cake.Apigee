@@ -40,6 +40,22 @@ namespace Cake.Apigee.Tests
         }
 
         /// <summary>
+        /// Add a fake response when <paramref name="uri"/> is requested.
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="statusCode"></param>
+        /// <param name="body"></param>
+        public void AddFakeResponse(Uri uri, HttpStatusCode statusCode, string body)
+        {
+            this.AddFakeResponse(
+                uri,
+                new HttpResponseMessage(statusCode)
+                    {
+                        Content = new StringContent(body)
+                    });
+        }
+
+        /// <summary>
         /// Override all responses with a single response.
         /// </summary>
         /// <param name="responseMessage"></param>

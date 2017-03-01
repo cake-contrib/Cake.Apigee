@@ -200,6 +200,30 @@ namespace Cake.Apigee.Services
             Task.WaitAll(tasks.ToArray());            
         }
 
+        public async Task<CreateKeyValueMapResult> CreateKeyValueMap(ICakeContext ctx, string orgName, KeyValueMap keyValueMap, CreateKeyValueMapSettings settings)
+        {
+            ctx.Log.Information("Creating a KeyValueMap in Apigee");
+            var url = baseUri + $"v1/organizations/{orgName}"; ;
+            if (settings != null && settings.Environment != null)
+            {
+                url += $"/environments/{settings.Environment}";
+            }
+
+            url += "/keyvaluemaps";
+
+            using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, url))
+            {
+                if (!string.IsNullOrEmpty(settings?.Credentials?.Username))
+                {
+                    AddAuthorization(settings.Credentials, message);
+                }
+
+                message.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                message.Content = new StringContent(JsonConvert.SerializeObject(keyValueMap), Encoding.UTF8, "application/json");
+                return await SendMessage<CreateKeyValueMapResult>(ctx, message, settings);
+            }
+        }
+
         private async Task<T> SendMessage<T>(ICakeContext ctx, HttpRequestMessage message, IBaseSettings settings)
         {
             using (HttpResponseMessage response = await client.SendAsync(message))
