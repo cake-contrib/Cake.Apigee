@@ -14,6 +14,7 @@ using Cake.Core.Diagnostics;
 using Cake.Core.IO;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 
 namespace Cake.Apigee.Services
@@ -54,7 +55,7 @@ namespace Cake.Apigee.Services
         {
             ctx.Log.Information("Deploying {0} to Apigee environment {1}", proxyName, envName);
             string url = baseUri
-                         + $"/v1/o/{orgName}/environments/{envName}/apis/{proxyName}/revisions/{revisionNumber}/deployments";
+                         + $"v1/o/{orgName}/environments/{envName}/apis/{proxyName}/revisions/{revisionNumber}/deployments";
             List<string> queryParams = new List<string>();
             if (settings?.Override ?? false)
             {
@@ -92,12 +93,26 @@ namespace Cake.Apigee.Services
                 DeployEnvironment environment = null;                
                 if (result.Environment != null)
                 {
-
-                    environment =
-                        result.Environment.FirstOrDefault(
-                            env =>
-                                env.Revision == revisionNumber && env.State == "deployed"
+                    if (result.Environment is JArray)
+                    {
+                        var environments = ((JArray)result.Environment).ToObject<IEnumerable<DeployEnvironment>>();
+                        environment =                            
+                            environments.FirstOrDefault(
+                                env =>
+                                env.Revision == revisionNumber 
+                                && env.State == "deployed"
                                 && env.Environment == envName);
+                    }
+                    else
+                    {
+                        environment = ((JObject)result.Environment).ToObject<DeployEnvironment>();
+
+                        // Dirty
+                        if (environment.State != "deployed")
+                        {
+                            environment = null;
+                        }
+                    }
                 }
 
                 if (environment == null)

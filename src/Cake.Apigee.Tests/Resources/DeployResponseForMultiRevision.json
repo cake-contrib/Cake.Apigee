@@ -1,0 +1,74 @@
+﻿{
+    "aPIProxy": "apiProxy",
+    "environment": [
+        {
+            "aPIProxy": "apiProxy",
+            "configuration": {
+                "basePath": "/",
+                "steps": []
+            },
+            "environment": "dev",
+            "name": "2",
+            "organization": "org",
+            "revision": "2",
+            "server": [
+                {
+                    "status": "deployed",
+                    "type": [ "message-processor" ],
+                    "uUID": "85415c6e-ad04-48c8-aef7-6513bf78bd21"
+                },
+                {
+                    "status": "deployed",
+                    "type": [ "message-processor" ],
+                    "uUID": "85415c6e-ad04-48c8-aef7-6513bf78bd21"
+                },
+                {
+                    "status": "deployed",
+                    "type": [ "router" ],
+                    "uUID": "85415c6e-ad04-48c8-aef7-6513bf78bd21"
+                },
+                {
+                    "status": "deployed",
+                    "type": [ "router" ],
+                    "uUID": "85415c6e-ad04-48c8-aef7-6513bf78bd21"
+                }
+            ],
+            "state": "deployed"
+        },
+        {
+            "aPIProxy": "apiProxy",
+            "configuration": {
+                "basePath": "/",
+                "steps": []
+            },
+            "environment": "dev",
+            "name": "1",
+            "organization": "org",
+            "revision": "1",
+            "server": [
+                {
+                    "status": "undeployed",
+                    "type": [ "message-processor" ],
+                    "uUID": "85415c6e-ad04-48c8-aef7-6513bf78bd21"
+                },
+                {
+                    "status": "undeployed",
+                    "type": [ "message-processor" ],
+                    "uUID": "85415c6e-ad04-48c8-aef7-6513bf78bd21"
+                },
+                {
+                    "status": "undeployed",
+                    "type": [ "router" ],
+                    "uUID": "85415c6e-ad04-48c8-aef7-6513bf78bd21"
+                },
+                {
+                    "status": "undeployed",
+                    "type": [ "router" ],
+                    "uUID": "85415c6e-ad04-48c8-aef7-6513bf78bd21"
+                }
+            ],
+            "state": "undeployed"
+        }
+    ],
+    "organization": "org"
+}

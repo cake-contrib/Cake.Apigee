@@ -204,5 +204,41 @@ namespace Cake.Apigee.Tests
             // Act            
             ApigeeAliases.DeleteAllUndeployedApiProxyRevisions(fixture.ContextMock.Object, "org", "proxy");
         }
+
+        [Fact]
+        public void GivenDeployAProxy_WhenFirstDeployment_ThenSuccess()
+        {
+            var baseUri = new Uri("https://api.enterprise.apigee.com");
+            var fixture = new ApigeeAliasesFixture(this.output);
+            ApigeeAliases.ApigeeProxyManagementService = fixture.ApigeeProxyManagementService;
+            fixture.FakeResponseHandler.AddFakeResponse(
+                new Uri(baseUri, $"v1/o/org/environments/dev/apis/apiName/revisions/1/deployments?override=True&delay=15"), 
+                new HttpResponseMessage(HttpStatusCode.OK)
+                    {
+                        Content = new StringContent(
+                            ResourceHelper.GetResourceAsString("DeployResponseForSingleRevision.json"))
+                    });
+           
+            // Act            
+            ApigeeAliases.DeployProxy(fixture.ContextMock.Object, "org", "dev", "apiName", "1", new DeployProxySettings());
+        }
+
+        [Fact]
+        public void GivenDeployAProxy_WhenMultiRevisions_ThenSuccess()
+        {
+            var baseUri = new Uri("https://api.enterprise.apigee.com");
+            var fixture = new ApigeeAliasesFixture(this.output);
+            ApigeeAliases.ApigeeProxyManagementService = fixture.ApigeeProxyManagementService;
+            fixture.FakeResponseHandler.AddFakeResponse(
+                new Uri(baseUri, $"v1/o/org/environments/dev/apis/apiName/revisions/2/deployments?override=True&delay=15"),
+                new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(
+                            ResourceHelper.GetResourceAsString("DeployResponseForMultiRevision.json"))
+                });
+
+            // Act            
+            ApigeeAliases.DeployProxy(fixture.ContextMock.Object, "org", "dev", "apiName", "2", new DeployProxySettings());
+        }
     }
 }

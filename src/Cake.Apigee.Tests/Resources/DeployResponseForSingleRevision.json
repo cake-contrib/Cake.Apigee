@@ -1,0 +1,34 @@
+﻿{
+    "aPIProxy": "apiProxy",
+    "configuration": {
+        "basePath": "/",
+        "steps": []
+    },
+    "environment": "dev",
+    "name": "1",
+    "organization": "org",
+    "revision": "1",
+    "server": [
+        {
+            "status": "deployed",
+            "type": [ "message-processor" ],
+            "uUID": "85415c6e-ad04-48c8-aef7-6513bf78bd21"
+        },
+        {
+            "status": "deployed",
+            "type": [ "message-processor" ],
+            "uUID": "169fc704-a8b6-43cd-bc60-56c04d56f335"
+        },
+        {
+            "status": "deployed",
+            "type": [ "router" ],
+            "uUID": "2574607b-1cec-4ce4-a8df-60269c127517"
+        },
+        {
+            "status": "deployed",
+            "type": [ "router" ],
+            "uUID": "d1df5c9c-4d8b-4273-80b6-ff6bf1b91377"
+        }
+    ],
+    "state": "deployed"
+}

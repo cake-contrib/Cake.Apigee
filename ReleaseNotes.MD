@@ -1,3 +1,6 @@
+## New in 0.6.0 (Released 16/3/2017)
+- fixed bug where deploy result failed to deserialize if no other revisions existed.
+
 ## New in 0.5.0 (Released 01/03/2017)
 - added CreateKeyValueMap, ListKeyValueMaps and DeleteKeyValueMap which support
   organisation and environment scope.
