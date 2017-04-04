@@ -278,7 +278,6 @@ namespace Cake.Apigee.Services
         private string ConstructKeyValueMapUrl(string orgName, IEnvironmentSettings settings)
         {
             var url = baseUri + $"v1/organizations/{orgName}";
-            ;
             if (settings != null && settings.Environment != null)
             {
                 url += $"/environments/{settings.Environment}";
