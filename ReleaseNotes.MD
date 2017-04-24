@@ -1,3 +1,6 @@
+## New in 0.8.0 (Released 24/4/2017)
+- updated the XML docs and also output http status if a proxy deploy fails to assist in diagnosis.
+
 ## New in 0.7.0 (Released 16/3/2017)
 - fixed bug where deploy result failed to deserialize if no other revisions existed.
 
