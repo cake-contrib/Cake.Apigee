@@ -361,7 +361,7 @@ namespace Cake.Apigee.Services
                     ctx.Log.Verbose("Proxy revision {0} for {1} {2}", proxyName, revisionNumber, result ?? false ? "deleted" : "not deleted");
                     if (result == null)
                     {
-                        throw new Exception("Apigee returned unexpected status when deleting revision " + revisionNumber + " of proxy " + proxyName);
+                        throw new Exception($"Apigee returned unexpected status code '{response.StatusCode}' when deleting revision " + revisionNumber + " of proxy " + proxyName);
                     }
 
                     return result.Value;
