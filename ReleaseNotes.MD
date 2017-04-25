@@ -1,3 +1,6 @@
+## New in 0.9.0 (Released 25/4/2017)
+- increased the HTTP client timeout to 3 minutes to allow long running commands such as 'npm install' to complete.
+
 ## New in 0.8.0 (Released 24/4/2017)
 - updated the XML docs and also output http status if a proxy deploy fails to assist in diagnosis.
 
