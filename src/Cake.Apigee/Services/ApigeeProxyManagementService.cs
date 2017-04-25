@@ -39,6 +39,9 @@ namespace Cake.Apigee.Services
         public ApigeeProxyManagementService(HttpClient client)
         {
             this.client = client;
+
+            // Commands such as NPM install sometimes need more than the default
+            this.client.Timeout = TimeSpan.FromMinutes(3);
         }
 
         #endregion
