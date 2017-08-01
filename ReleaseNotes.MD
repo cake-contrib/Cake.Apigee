@@ -1,3 +1,6 @@
+## New in 0.10.0 (Released 1/8/2017)
+- no functional change, using the cake.contrib icon.
+
 ## New in 0.9.0 (Released 25/4/2017)
 - increased the HTTP client timeout to 3 minutes to allow long running commands such as 'npm install' to complete.
 
