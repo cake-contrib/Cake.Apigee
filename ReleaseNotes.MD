@@ -1,3 +1,6 @@
+## New in 0.11.0 (Released 28/9/2017)
+- no functional change, updated to using Cake v0.22.2.
+
 ## New in 0.10.0 (Released 1/8/2017)
 - no functional change, using the cake.contrib icon.
 
