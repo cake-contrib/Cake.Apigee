@@ -1,4 +1,3 @@
-#addin "Cake.Figlet"
 #addin "Cake.Git"
 #tool "xunit.runner.console"
 
@@ -47,7 +46,6 @@ var zipPackage = buildResultDir + "/Cake-Apigee-v" + semVersion + ".zip";
 
 Setup(context =>
 {
-    Information(Figlet(appName));
 });
 
 ///////////////////////////////////////////////////////////////////////////////
