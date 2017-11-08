@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -26,6 +26,8 @@ namespace Cake.Apigee.Tests
         public Mock<ICakeContext> ContextMock { get; set; }
 
         public FakeResponseHandler FakeResponseHandler { get; set; } = new FakeResponseHandler();
+
+        public List<string> LogMessages = new List<string>();
 
         public Uri RequestUrl
         {
@@ -54,7 +56,9 @@ namespace Cake.Apigee.Tests
                         It.IsAny<object[]>())).Callback<Verbosity, LogLevel, string, object[]>(
                             (v, l, m, p) =>
                             {
-                                output.WriteLine($"{v}-{l}: {string.Format(m, p)}{Environment.NewLine}");
+                                var message = $"{v}-{l}: {string.Format(m, p)}";
+                                output.WriteLine($"{message}{Environment.NewLine}");
+                                this.LogMessages.Add(message);
                             });
         }
 
@@ -85,6 +89,11 @@ namespace Cake.Apigee.Tests
             SetFakeResponse(HttpStatusCode.OK, "GetApiProxyResponse.json");
         }
 
+        public void UseValidationFailedImportResponse()
+        {
+            SetFakeResponse(HttpStatusCode.BadRequest, "ImportProxyValidationFailResponse.json");
+        }
+
         public void Use(HttpStatusCode code, string resourceName)
         {
             SetFakeResponse(code, resourceName);
@@ -110,6 +119,6 @@ namespace Cake.Apigee.Tests
             };
 
             this.FakeResponseHandler.SetFakeResponse(response);
-        }       
+        }
     }
 }

@@ -56,7 +56,7 @@ namespace Cake.Apigee
         {
             ctx.Log.Information("Import proxy " + proxyZipfile);
 
-            return Run(() => ApigeeProxyManagementService.ImportProxyAsync(ctx, orgName, proxyName, proxyZipfile, settings).Result);
+            return Run(() => ApigeeProxyManagementService.ImportProxyAsync(ctx, orgName, proxyName, proxyZipfile, settings ?? new ImportProxySettings()).Result);
         }
 
         /// <summary>

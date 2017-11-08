@@ -2,9 +2,6 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Policy;
-
-using Cake.Apigee.Services;
 
 using Xunit;
 using Xunit.Abstractions;
@@ -33,7 +30,7 @@ namespace Cake.Apigee.Tests
             ApigeeAliases.ImportProxy(fixture.ContextMock.Object, "org", "proxy", fixture.GetProxyZipFilePath());
 
             // Assert
-            Assert.Equal(new Uri("https://api.enterprise.apigee.com/v1/organizations/org/apis?action=import&name=proxy"), fixture.RequestUrl);
+            Assert.Equal(new Uri("https://api.enterprise.apigee.com/v1/organizations/org/apis?action=import&name=proxy&validate=true"), fixture.RequestUrl);
         }
 
         [Fact]
@@ -54,6 +51,28 @@ namespace Cake.Apigee.Tests
             {
                 Assert.True(ex.Message.StartsWith("Apigee returned BadRequest"));
             }
+        }
+
+        [Fact]
+        public void GivenImportProxy_WhenImportFailsDueToValidation_ThenValidationErrorIsLoggedAndExceptionThrown()
+        {
+            // Arrange
+            var fixture = new ApigeeAliasesFixture(this.output);
+            ApigeeAliases.ApigeeProxyManagementService = fixture.ApigeeProxyManagementService;
+
+            fixture.UseValidationFailedImportResponse();
+
+            // Act
+            try
+            {
+                ApigeeAliases.ImportProxy(fixture.ContextMock.Object, "org", "proxy", fixture.GetProxyZipFilePath());
+            }
+            catch (Exception ex)
+            {
+                Assert.True(ex.Message.StartsWith("Apigee returned BadRequest"));
+            }            
+
+            Assert.True(fixture.LogMessages.Any(m => m.Contains("BadElement")));
         }
 
         [Fact]

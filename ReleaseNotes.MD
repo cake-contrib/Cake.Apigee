@@ -1,3 +1,7 @@
+## New in 0.12.0 (Released 8/11/2017)
+- default the ImportProxy to validate the proxy. It can be set back to previous behaviour of non-validation using
+  setting the ImportProxySettings.Validate property to false.
+
 ## New in 0.11.0 (Released 28/9/2017)
 - no functional change, updated to using Cake v0.22.2.
 

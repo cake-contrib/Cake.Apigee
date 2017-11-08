@@ -135,7 +135,7 @@ namespace Cake.Apigee.Services
             ImportProxySettings settings)
         {
             ctx.Log.Information("Importing Apigee proxy {0}", proxyName);
-            string url = baseUri + $"v1/organizations/{orgName}/apis?action=import&name={proxyName}";
+            string url = baseUri + $"v1/organizations/{orgName}/apis?action=import&name={proxyName}&validate={settings.Validate.ToString().ToLowerInvariant()}";
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, url))
             {
                 if (!string.IsNullOrEmpty(settings?.Credentials?.Username))
