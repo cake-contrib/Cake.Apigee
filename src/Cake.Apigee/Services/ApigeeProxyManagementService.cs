@@ -39,6 +39,7 @@ namespace Cake.Apigee.Services
         public ApigeeProxyManagementService(HttpClient client)
         {
             this.client = client;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             // Commands such as NPM install sometimes need more than the default
             this.client.Timeout = TimeSpan.FromMinutes(3);
@@ -291,7 +292,7 @@ namespace Cake.Apigee.Services
         }
 
         private async Task<T> SendMessage<T>(ICakeContext ctx, HttpRequestMessage message, ICredentialSettings settings)
-        {
+        {            
             using (HttpResponseMessage response = await client.SendAsync(message))
             {
                 if (!response.IsSuccessStatusCode)

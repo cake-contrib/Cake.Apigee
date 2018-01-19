@@ -1,3 +1,8 @@
+## New in 0.13.0 (Released 19/1/2018)
+- Set TLS 1.2 to fix exception of getting:
+  "An error occurred while sending the request." with inner error of:
+  "Authentication failed because the remote party has closed the transport stream."
+
 ## New in 0.12.0 (Released 8/11/2017)
 - default the ImportProxy to validate the proxy. It can be set back to previous behaviour of non-validation using
   setting the ImportProxySettings.Validate property to false.
