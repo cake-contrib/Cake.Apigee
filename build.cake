@@ -95,12 +95,13 @@ Task("Build")
     .IsDependentOn("Patch-Assembly-Info")
     .Does(() =>
 {
-    DotNetBuild (solutionPath, settings =>
-        settings.SetConfiguration(configuration)
-                .WithTarget("Build")
-                .SetVerbosity(Verbosity.Minimal)                    
-                .WithProperty("TreatWarningsAsErrors","false")
-    );    
+    MSBuild(solutionPath, new MSBuildSettings 
+    {
+        Verbosity = Verbosity.Minimal,
+        ToolVersion = MSBuildToolVersion.VS2017,
+        Configuration = "Release",
+        PlatformTarget = PlatformTarget.MSIL
+    });    
 });
 
 Task("Run-Unit-Tests")
