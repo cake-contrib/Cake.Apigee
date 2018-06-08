@@ -1,3 +1,6 @@
+## New in 0.15.0 (Released 08/6/2018)
+- Appveyor fix
+
 ## New in 0.14.0 (Released 08/6/2018)
 - Upgrade to Cake 0.28.0
 - Upgrade to .netstandard 2.0
