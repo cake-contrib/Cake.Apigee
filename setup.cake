@@ -2,6 +2,7 @@
 
 Environment.SetVariableNames();
 
+BuildParameters.IsDotNetCoreBuild = true;
 BuildParameters.SetParameters(context: Context, 
                             buildSystem: BuildSystem,
                             sourceDirectoryPath: "./src",
