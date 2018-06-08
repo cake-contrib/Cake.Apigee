@@ -1,6 +1,6 @@
 ## New in 0.14.0 (Released 08/6/2018)
 - Upgrade to Cake 0.28.0
-- Upgrade to .net 4.7.1 and change TLS to SystemDefault for future compatibility with TLS 1.3
+- Upgrade to .netstandard 2.0
 
 ## New in 0.13.0 (Released 19/1/2018)
 - Set TLS 1.2 to fix exception of getting:
