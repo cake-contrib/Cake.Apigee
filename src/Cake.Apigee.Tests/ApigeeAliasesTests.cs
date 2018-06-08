@@ -49,7 +49,7 @@ namespace Cake.Apigee.Tests
             }
             catch (Exception ex)
             {
-                Assert.True(ex.Message.StartsWith("Apigee returned BadRequest"));
+                Assert.StartsWith("Apigee returned BadRequest", ex.Message);
             }
         }
 
@@ -69,10 +69,10 @@ namespace Cake.Apigee.Tests
             }
             catch (Exception ex)
             {
-                Assert.True(ex.Message.StartsWith("Apigee returned BadRequest"));
+                Assert.StartsWith("Apigee returned BadRequest", ex.Message);
             }            
 
-            Assert.True(fixture.LogMessages.Any(m => m.Contains("BadElement")));
+            Assert.Contains(fixture.LogMessages, message => message.Contains("BadElement"));
         }
 
         [Fact]

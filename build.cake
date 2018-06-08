@@ -28,7 +28,7 @@ var buildNumber = AppVeyor.Environment.Build.Number;
 var version = releaseNotes.Version.ToString();
 var semVersion = local ? version : (version + string.Concat("-build-", buildNumber));
 
-var buildDir = "./src/Cake.Apigee/bin/" + configuration;
+var buildDir = "./src/Cake.Apigee/bin/" + configuration + "/netstandard2.0";
 var buildTestDir = "./src/Cake.Apigee/bin/" + configuration;
 
 var buildResultDir = "./build/v" + semVersion;

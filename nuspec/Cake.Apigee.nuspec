@@ -18,13 +18,12 @@
       <tags>Cake Script Build Apigee</tags>
 
       <dependencies>
-          <dependency id="Microsoft.Net.Http" version="2.2.29" />
-          <dependency id="Newtonsoft.Json" version="9.0.1" />
+          <dependency id="Newtonsoft.Json" version="11.0.2" />
       </dependencies>
    </metadata>
 
    <files>
-      <file src="Cake.Apigee.dll" target="lib\net45\Cake.Apigee.dll" />
-      <file src="Cake.Apigee.XML" target="lib\net45\Cake.Apigee.XML" />
+      <file src="Cake.Apigee.dll" target="lib\netstandard2.0\Cake.Apigee.dll" />
+      <file src="Cake.Apigee.XML" target="lib\netstandard2.0\Cake.Apigee.XML" />
    </files>
 </package>
