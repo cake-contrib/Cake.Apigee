@@ -3,6 +3,6 @@ init:
   - git config --global core.autocrlf true
 
 build_script:
-  - cmd: powershell -NoProfile -ExecutionPolicy unrestricted -Command .\build.ps1 -Target "appveyor"
+  - ps: .\build.ps1 -Script setup.cake -Target AppVeyor -Verbosity Diagnostic --settings_skipverification=true
 
 test: on
