@@ -10,8 +10,7 @@ BuildParameters.SetParameters(context: Context,
                             repositoryOwner: "LittleColin",
                             repositoryName: "Cake.Apigee",
                             shouldRunDupFinder: false,
-                            shouldRunInspectCode: false,
-                            nuspecFilePath: "nuspec/Cake.Apigee.nuspec",
+                            shouldRunInspectCode: false,                            
                             appVeyorAccountName: "LittleColin");
 
 BuildParameters.PrintParameters(Context);
