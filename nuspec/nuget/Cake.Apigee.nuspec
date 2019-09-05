@@ -8,12 +8,11 @@
       <title>Cake.Apigee</title>
       <description>Cake Build addin for Apigee management API. Currently only handles proxy deployment.</description>
       <summary>Cake Build addin for the Apigee management API.</summary>
-      <PackageLicenseExpression>MIT</PackageLicenseExpression>
       <projectUrl>https://github.com/cake-contrib/Cake.Apigee</projectUrl>
       <iconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png</iconUrl>
       <releaseNotes>See https://github.com/cake-contrib/Cake.Apigee/blob/master/ReleaseNotes.md</releaseNotes>
-      <RepositoryType>git</RepositoryType>
-      <RepositoryUrl>https://github.com/cake-contrib/Cake.Apigee.git</RepositoryUrl>
+      <license type="expression">MIT</license>
+      <repository type="git" url="https://github.com/cake-contrib/Cake.Apigee.git"/>
 
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
       <copyright>Copyright (c) Cybercohesion 2017</copyright>
