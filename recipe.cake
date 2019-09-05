@@ -20,7 +20,7 @@ ToolSettings.SetToolSettings(context: Context,
                             dupFinderThrowExceptionOnFindingDuplicates : false,
                             dupFinderExcludePattern: new string[] {
                                 BuildParameters.RootDirectoryPath + "/src/Cake.Apigee.Tests/*.cs" },
-                            testCoverageFilter: "+[*]* -[xunit.*]* -[Cake.Core]* -[Cake.Testing]* -[*.Tests]* ",
+                            testCoverageFilter: "+[*]* -[xunit.*]* -[Cake.Core]* -[Cake.Testing]* -[*.Tests]* -[Moq]*",
                             testCoverageExcludeByAttribute: "*.ExcludeFromCodeCoverage*",
                             testCoverageExcludeByFile: "*/*Designer.cs;*/*.g.cs;*/*.g.i.cs");
 Build.RunDotNetCore();
