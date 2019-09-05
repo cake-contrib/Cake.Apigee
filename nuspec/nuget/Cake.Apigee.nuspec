@@ -10,7 +10,7 @@
       <summary>Cake Build addin for the Apigee management API.</summary>
       <licenseUrl>https://github.com/LittleColin/Cake.Apigee/blob/master/LICENSE</licenseUrl>
       <projectUrl>https://github.com/LittleColin/Cake.Apigee</projectUrl>
-      <iconUrl>https://cdn.rawgit.com/cake-contrib/graphics/a5cf0f881c390650144b2243ae551d5b9f836196/png/cake-contrib-medium.png</iconUrl>
+      <iconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png</iconUrl>
       <releaseNotes>See https://github.com/LittleColin/Cake.Apigee/blob/master/ReleaseNotes.md</releaseNotes>
       
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
