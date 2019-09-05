@@ -1,8 +1,0 @@
-# Initalize
-init:
-  - git config --global core.autocrlf true
-
-build_script:
-  - ps: .\build.ps1 -Script recipe.cake -Target AppVeyor -Verbosity Diagnostic --settings_skipverification=true
-
-test: on
