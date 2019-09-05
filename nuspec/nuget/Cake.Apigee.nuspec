@@ -8,11 +8,11 @@
       <title>Cake.Apigee</title>
       <description>Cake Build addin for Apigee management API. Currently only handles proxy deployment.</description>
       <summary>Cake Build addin for the Apigee management API.</summary>
-      <licenseUrl>https://github.com/LittleColin/Cake.Apigee/blob/master/LICENSE</licenseUrl>
-      <projectUrl>https://github.com/LittleColin/Cake.Apigee</projectUrl>
+      <licenseUrl>https://github.com/cake-contrib/Cake.Apigee/blob/master/LICENSE</licenseUrl>
+      <projectUrl>https://github.com/cake-contrib/Cake.Apigee</projectUrl>
       <iconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png</iconUrl>
-      <releaseNotes>See https://github.com/LittleColin/Cake.Apigee/blob/master/ReleaseNotes.md</releaseNotes>
-      
+      <releaseNotes>See https://github.com/cake-contrib/Cake.Apigee/blob/master/ReleaseNotes.md</releaseNotes>
+
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
       <copyright>Copyright (c) Cybercohesion 2017</copyright>
       <tags>Cake Script Build Apigee</tags>

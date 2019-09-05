@@ -7,11 +7,11 @@ BuildParameters.SetParameters(context: Context,
                             buildSystem: BuildSystem,
                             sourceDirectoryPath: "./src",
                             title: "Cake.Apigee",
-                            repositoryOwner: "LittleColin",
+                            repositoryOwner: "cake-contrib",
                             repositoryName: "Cake.Apigee",
                             shouldRunDupFinder: false,
                             shouldRunInspectCode: false,
-                            appVeyorAccountName: "LittleColin",
+                            appVeyorAccountName: "cakecontrib",
                             shouldRunGitVersion: true);
 
 BuildParameters.PrintParameters(Context);
