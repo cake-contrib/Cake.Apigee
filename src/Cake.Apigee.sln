@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\LICENSE = ..\LICENSE
 		..\Readme.MD = ..\Readme.MD
 		..\ReleaseNotes.MD = ..\ReleaseNotes.MD
-		..\setup.cake = ..\setup.cake
+		..\recipe.cake = ..\recipe.cake
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cake.Apigee", "Cake.Apigee\Cake.Apigee.csproj", "{259ACA47-5AAB-4FDF-B5BC-EEA62E72BB35}"
