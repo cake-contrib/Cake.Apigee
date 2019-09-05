@@ -11,7 +11,8 @@ BuildParameters.SetParameters(context: Context,
                             repositoryName: "Cake.Apigee",
                             shouldRunDupFinder: false,
                             shouldRunInspectCode: false,
-                            appVeyorAccountName: "LittleColin");
+                            appVeyorAccountName: "LittleColin",
+                            shouldRunGitVersion: true);
 
 BuildParameters.PrintParameters(Context);
 
